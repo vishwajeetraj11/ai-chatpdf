@@ -3,6 +3,7 @@ import { Inbox, Loader2 } from "lucide-react";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
+import { uploadToS3 } from "@/lib/s3";
 
 const FileUpload = () => {
   const router = useRouter();
@@ -13,7 +14,16 @@ const FileUpload = () => {
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
-      console.log(file);
+      if (file.size > 10 * 1024 * 1024) {
+        alert("file too big! Limit is 10MB");
+        return;
+      }
+      try {
+        const data = await uploadToS3(file);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   return (
