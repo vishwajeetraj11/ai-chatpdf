@@ -39,13 +39,15 @@ const FileUpload = () => {
       try {
         setUploading(true);
         const data = await uploadToS3(file);
+        console.log(data);
         if (!data?.file_key || !data?.file_name) {
           toast.error("Something went wrong");
           return;
         }
         mutate(data, {
-          onSuccess: (data) => {
-            toast.success(data.message);
+          onSuccess: ({ chat_id }) => {
+            toast.success("Success!");
+            router.push(`/chats/${chat_id}`);
           },
           onError: (error) => {
             toast.error("Something went wrong");
