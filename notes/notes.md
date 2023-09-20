@@ -10,3 +10,4 @@ all files inside src will have access to env vars. but any file outside the src 
 // run studio
  npx drizzle-kit studio
 
+work with node 18

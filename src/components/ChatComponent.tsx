@@ -23,7 +23,19 @@ const ChatComponent = (props: Props) => {
 
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: "/api/chat",
+    body: { chatId: props.chatId },
   });
+
+  React.useEffect(() => {
+    const messageContainer = document.getElementById("message-container");
+    if (messageContainer) {
+      messageContainer.scrollTo({
+        top: messageContainer.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
     <div className="relative max-h-screen overflow-scroll">
       <div className="sticky top-0 inset-x-0 p-2 bg-whitw h-fit">
