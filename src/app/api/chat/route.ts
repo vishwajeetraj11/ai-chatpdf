@@ -24,6 +24,7 @@ export async function POST(req: Request) {
         const lastMessage = messages[messages.length - 1];
         const fileKey = _chats[0].fileKey
         const context = await getContext(lastMessage.content, fileKey);
+        // console.log({ context })
         const prompt = {
             role: "system",
             content: `AI assistant is a brand new, powerful, human-like artificial intelligence.

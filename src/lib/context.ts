@@ -61,6 +61,7 @@ export async function getContext(query: string, fileKey: string) {
         const metadata = doc.metadata as Metadata;
         return metadata.text;
     })
+    // console.log({ docs })
     // not feeding too much info in open ai, token limit might be reached.
     return docs.join('\n').substring(0, 3000);
 }
